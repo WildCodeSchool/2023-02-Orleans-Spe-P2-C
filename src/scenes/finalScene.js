@@ -10,62 +10,76 @@ let config = {
         create: create
     }
 }
-
-let game = new Phaser.Game(config)
+    
+const game = new Phaser.Game(config)
 
 function preload() {
-    this.load.image('pool', '../assets/images/pond.png');
-    this.load.image('hero', '../assets/images/hero.png');
-    this.load.image('princess', '../assets/images/princess.png');
-    this.load.image('dialog', '../assets/images/dialog-box.png');
+    this.load.setBaseURL("../assets/images");
+    this.load.image('pool', 'pond.png');
+    this.load.image('hero', 'hero.png');
+    this.load.image('princess', 'princess.png');
+    this.load.image('dialog', 'dialog-box.png');
 }
 
 let hero
 let princess
 let dialog
 let dialogueText
+let nameText
 let dialogueIndex = 0;
 function create() {
     this.add.image(800, 400, 'pool');
     hero = this.add.image(350, 605, 'hero').setScale(1.2);
     princess = this.add.image(1500, 605, 'princess').setScale(1.2);
     dialog = this.add.image(950, 820, 'dialog');
-    dialogueText = this.add.text(500, 750, "Hey", {
+    dialogueText = this.add.text(450, 765, "", {
+        fontSize: "60px",
+        color: "#fff",
+        wordWrap: { width: 1000, useAdvancedWrap: true },
+    });
+
+    nameText = this.add.text(507, 690, "", {
         fontSize: "60px",
         color: "#fff",
         wordWrap: { width: 1000, useAdvancedWrap: true },
     });
 
     let dialogue = [
-        "Princess: Bonjour Hero !",
-        "....",
-        "Princess: Aujourd'hui est le jour de ton avainement !",
-        "...",
-        "Es tu prêt ?",
+        { name: 'Princess', sentence: 'Bonjour Hero !' },
+        { name: 'Zakarius', sentence: `....` },
+        { name: 'Princess', sentence: "Princess: Aujourd'hui est le jour de ton avainement !" }
     ];
+
+
 
     this.input.keyboard.on("keydown-X", () => {
         if (dialogueIndex < dialogue.length - 1) {
             dialogueIndex++;
-            dialogueText.setText(dialogue[dialogueIndex]);
+            nameText.setText(dialogue[dialogueIndex].name);
+            dialogueText.setText(dialogue[dialogueIndex].sentence);
         } else {
+            nameText.setText("");
             dialogueText.setText("");
             dialogueIndex = 0;
-            dialogueText.setText("Princess: Es-tu prêt ? (oui/non)");
+            nameText.setText("Princess");
+            dialogueText.setText("Es-tu prêt ? (oui/non)");
         }
     });
 
-    dialogueText.setText(dialogue[dialogueIndex]);
+    nameText.setText(dialogue[dialogueIndex].name);
+    dialogueText.setText(dialogue[dialogueIndex].sentence);
 
     this.input.keyboard.on("keydown-O", () => {
         if (dialogueText.text.includes("Es-tu prêt ?")) {
-            dialogueText.setText("Princess: Félicitations, tu es prêt !");
+            nameText.setText("Princess");
+            dialogueText.setText("Félicitations, tu es prêt !");
         }
     });
 
     this.input.keyboard.on("keydown-N", () => {
         if (dialogueText.text.includes("Es-tu prêt ?")) {
-            dialogueText.setText("Princess: Dommage, tu es GAME OVER");
+            nameText.setText("Princess");
+            dialogueText.setText("Dommage, tu es GAME OVER");
         }
     });
 
