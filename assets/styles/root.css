@@ -1,7 +1,9 @@
 :root {
-    --light: aliceblue;
+    --origin: #CC9C1A;
     --primary: #ffffff;
-    --secondary: #ffffffec;
+    --secondary: #CC9C1A;
+    --light: white;
+    --black: rgb(0, 0, 0);
 }
 
 * {
