@@ -15,6 +15,10 @@ class SceneThree extends Phaser.Scene {
         let pond = this.add.image(-150,0,'pond').setOrigin(0,0).setScale(0.7);
 
         let dialogBox = this.add.image(90,420,'dialog-box').setOrigin(0,0).setScale(0.9);
+    }
+
+    update ()
+    {
         this.input.once('pointerdown', function (event) {
 
             this.scene.start('SceneTwo');

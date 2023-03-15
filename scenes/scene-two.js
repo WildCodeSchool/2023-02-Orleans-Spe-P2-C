@@ -23,32 +23,16 @@ class SceneTwo extends Phaser.Scene {
         this.add.image(90,420,'dialog-box').setOrigin(0,0).setScale(0.9);
 
         this.input.manager.enabled = true;
-
-        dialog = this.add.text(160,500, '', {fontSize: '40px', fontFamily: 'VT323'});
-        name = this.add.text(220,435, '', {fontSize: '60px', fontFamily: 'VT323'})
-
-        town.setInteractive();
-        town.on('clicked', this.clickHandler, this);
-        this.input.on('gameobjectup', function (pointer, gameObject)
-        {
-            gameObject.emit('clicked', gameObject);
-        }, this);
     }
 
     update ()
     {
-        if (counter < dialogTexts.length) {
-            dialog.setText(dialogTexts[counter].sentence);
-            name.setText(dialogTexts[counter].name);
-        } else {
-            this.scene.start('SceneThree');
-        }
-    }
+        this.input.once('pointerdown', function (event) {
 
-    clickHandler (town)
-    {
-        counter++;
-    }
+            this.scene.start('SceneThree');
+
+        }, this);
+        }
 }
 
 let dialogTexts = [{name: 'name', sentence: 'hello darkness'}, {name: 'name', sentence:`I've come to talk`}, {name:'', sentence:'with you again'}]
