@@ -24,45 +24,49 @@ let hero
 let princess
 let dialog
 let dialogueText
+let dialogueIndex = 0;
 function create() {
     this.add.image(800, 400, 'pool');
     hero = this.add.image(350, 605, 'hero').setScale(1.2);
     princess = this.add.image(1500, 605, 'princess').setScale(1.2);
     dialog = this.add.image(950, 820, 'dialog');
-
-    // Ajout du texte de la boîte de dialogue
     dialogueText = this.add.text(500, 750, "Hey", {
         fontSize: "60px",
         color: "#fff",
         wordWrap: { width: 1000, useAdvancedWrap: true },
     });
 
-    // Texte à afficher dans la boîte de dialogue
     let dialogue = [
         "Princess: Bonjour Hero !",
         "....",
         "Princess: Aujourd'hui est le jour de ton avainement !",
         "...",
+        "Es tu prêt ?",
     ];
 
-    // Index du texte actuellement affiché
-    let dialogueIndex = 0;
-
-    // Ajout d'un écouteur d'événements pour la touche "X"
     this.input.keyboard.on("keydown-X", () => {
-        // S'il reste du texte à afficher
-        if (dialogueIndex < dialogue.length) {
-            // Affiche le texte suivant
+        if (dialogueIndex < dialogue.length - 1) {
             dialogueIndex++;
             dialogueText.setText(dialogue[dialogueIndex]);
         } else {
-            // Ferme la boîte de dialogue
             dialogueText.setText("");
             dialogueIndex = 0;
+            dialogueText.setText("Princess: Es-tu prêt ? (oui/non)");
         }
-
     });
 
     dialogueText.setText(dialogue[dialogueIndex]);
+
+    this.input.keyboard.on("keydown-O", () => {
+        if (dialogueText.text.includes("Es-tu prêt ?")) {
+            dialogueText.setText("Princess: Félicitations, tu es prêt !");
+        }
+    });
+
+    this.input.keyboard.on("keydown-N", () => {
+        if (dialogueText.text.includes("Es-tu prêt ?")) {
+            dialogueText.setText("Princess: Dommage, tu es GAME OVER");
+        }
+    });
 
 }
