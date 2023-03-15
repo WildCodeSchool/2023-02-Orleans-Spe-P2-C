@@ -21,7 +21,7 @@ button {
 
 #intro {
     font-size: 4vh;
-    background-image: url('/assets/images/7.jpeg');
+    background-image: url('../images/7.jpeg');
     background-position: center;
     background-size: cover;
     background-clip: text;
