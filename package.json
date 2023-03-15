@@ -1,0 +1,20 @@
+{
+  "name": "2023-02-orleans-spe-p2-c",
+  "version": "1.0.0",
+  "description": "## Prerequisites - Install Node",
+  "main": "game.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WildCodeSchool/2023-02-Orleans-Spe-P2-C.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WildCodeSchool/2023-02-Orleans-Spe-P2-C/issues"
+  },
+  "homepage": "https://github.com/WildCodeSchool/2023-02-Orleans-Spe-P2-C#readme"
+}
