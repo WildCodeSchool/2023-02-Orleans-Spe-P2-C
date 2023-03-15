@@ -15,7 +15,7 @@ class SceneTwo extends Phaser.Scene {
         let town = this.add.image(0,-150,'town').setOrigin(0,0);
         town.setScale(1.7);
 
-        this.add.image(90,420,'dialog-box').setOrigin(0,0).setScale(0.9);
+        this.add.image(150,480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
 
         this.input.manager.enabled = true;
     }

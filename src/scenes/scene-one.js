@@ -1,6 +1,6 @@
-class DialogueScene extends Phaser.Scene {
+class SceneOne extends Phaser.Scene {
     constructor() {
-        super({ key: 'DialogueScene' });
+        super({ key: 'SceneOne' });
     }
 
     preload() {
@@ -14,12 +14,12 @@ class DialogueScene extends Phaser.Scene {
     create() {
         this.add.image(0, 0, 'forest').setOrigin(0).setScale(0.5).setDepth(1);
         this.characters = [
-            new Character(this, 0, 350, 'hero', 1.3, 'Zakarius', [
+            new Character(this, 0, 210, 'hero', 1.3, 'Zakarius', [
                 'Salut Sylvain',
                 'Tu vas bien ce matin?',
                 'Oui, à bientôt'
             ]),
-            new Character(this, 1100, 250, 'hero2', 1.0, 'Sylvain', [
+            new Character(this, 700, 110, 'hero2', 1.0, 'Sylvain', [
                 'Salut Signature stp',
                 'Oui et toi?',
                 'à bientôt'
@@ -28,15 +28,15 @@ class DialogueScene extends Phaser.Scene {
 
         this.move();
 
-        this.dialogueBox = this.add.image(250, 600, 'box').setOrigin(0).setScale(0.8).setDepth(2).setVisible(false);
-        this.characterNameText = this.add.text(448, 620, '', {
+        this.dialogueBox = this.add.image(150,480, 'box').setOrigin(0).setScale(0.8).setDepth(2).setVisible(false);
+        this.characterNameText = this.add.text(265, 505, '', {
             font: '30px Arial',
-            fill: '#000000',
+            fill: '#ffffff',
             lineSpacing: 10,
         }).setDepth(2).setVisible(false);
-        this.dialogueText = this.add.text(330, 650, '', {
-            font: '30px Arial',
-            fill: '#000000',
+        this.dialogueText = this.add.text(220, 505, '', {
+            font: '25px Arial',
+            fill: '#ffffff',
             lineSpacing: 10,
             padding: { top: 50 }
         }).setDepth(2).setVisible(false);
@@ -44,6 +44,15 @@ class DialogueScene extends Phaser.Scene {
         this.currentCharacterIndex = 0;
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
 
+    }
+
+    update ()
+    {
+        this.input.once('pointerdown', function (event) {
+
+            this.scene.start('SceneTwo');
+
+        }, this);
     }
 
     showDialogue() {
@@ -59,7 +68,7 @@ class DialogueScene extends Phaser.Scene {
     move() {
 
         this.characters[0].image.x = -300;
-        this.characters[1].image.x = 1700;
+        this.characters[1].image.x = 700;
 
         this.tweens.add({
             targets: this.characters[0].image,
@@ -70,7 +79,7 @@ class DialogueScene extends Phaser.Scene {
 
         this.tweens.add({
             targets: this.characters[1].image,
-            x: 1100,
+            x: 900,
             duration: 2000,
             ease: 'Power2'
         });
@@ -107,12 +116,4 @@ class Character {
     }
 }
 
-const config = {
-    type: Phaser.AUTO,
-    width: 1440,
-    height: 859,
-    parent: 'game-container',
-    scene: [DialogueScene]
-};
-
-const game = new Phaser.Game(config);
+export default SceneOne;
