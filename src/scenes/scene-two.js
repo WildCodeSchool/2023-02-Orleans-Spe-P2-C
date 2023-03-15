@@ -30,5 +30,5 @@ class SceneTwo extends Phaser.Scene {
         }
 }
 
-let dialogTexts = [{name: 'name', sentence: 'hello darkness'}, {name: 'name', sentence:`I've come to talk`}, {name:'', sentence:'with you again'}]
+const dialogTexts = [{name: 'name', sentence: 'hello darkness'}, {name: 'name', sentence:`I've come to talk`}, {name:'', sentence:'with you again'}]
 export default SceneTwo;
