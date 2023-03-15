@@ -33,7 +33,7 @@ class SceneTwo extends Phaser.Scene {
         {
             gameObject.emit('clicked', gameObject);
         }, this);
-    }e
+    }
 
     update ()
     {
