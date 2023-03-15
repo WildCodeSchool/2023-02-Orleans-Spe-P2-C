@@ -1,4 +1,4 @@
-import Phaser from "./lib/phaser.js";
+import Phaser from "../lib/phaser.js";
 
 let config = {
     type: Phaser.AUTO,
@@ -14,7 +14,7 @@ let config = {
 let game = new Phaser.Game(config)
 
 function preload() {
-    this.load.image('pool', '../assets/images/Reflecting_Pool.png');
+    this.load.image('pool', '../assets/images/pond.png');
     this.load.image('hero', '../assets/images/hero.png');
     this.load.image('princess', '../assets/images/princess.png');
     this.load.image('dialog', '../assets/images/dialog-box.png');
