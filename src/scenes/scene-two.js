@@ -1,6 +1,3 @@
-let counter = 0;
-let dialog;
-let name;
 class SceneTwo extends Phaser.Scene {
     constructor ()
     {
@@ -15,8 +12,6 @@ class SceneTwo extends Phaser.Scene {
 
     create ()
     {
-        let counter = 0;
-
         let town = this.add.image(0,-150,'town').setOrigin(0,0);
         town.setScale(1.7);
 
