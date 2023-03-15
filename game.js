@@ -14,4 +14,4 @@ const config = {
         [SceneTwo, SceneThree]
 };
 
-let game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
