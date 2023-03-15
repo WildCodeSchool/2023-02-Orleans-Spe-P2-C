@@ -4,10 +4,11 @@ class DialogueScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('forest', './assets/images/mgs.png');
-        this.load.image('hero', './assets/images/heroz.png');
-        this.load.image('hero2', './assets/images/hero2z.png');
-        this.load.image('box', './assets/images/dialog-box.png');
+        this.load.setBaseURL("../assets/images");
+        this.load.image('forest', 'mgs.png');
+        this.load.image('hero', 'heroz.png');
+        this.load.image('hero2', 'hero2z.png');
+        this.load.image('box', 'dialog-box.png');
     }
 
     create() {
