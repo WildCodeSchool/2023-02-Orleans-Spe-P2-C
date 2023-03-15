@@ -45,9 +45,9 @@ function create() {
     });
 
     let dialogue = [
-        { name: 'Princess', sentence: 'Bonjour Hero !' },
+        { name: 'Sylvain', sentence: 'Bonjour Hero !' },
         { name: 'Zakarius', sentence: `....` },
-        { name: 'Princess', sentence: "Princess: Aujourd'hui est le jour de ton avainement !" }
+        { name: 'Sylvain', sentence: "Aujourd'hui est le jour de ton avènement !" }
     ];
 
 
@@ -61,7 +61,7 @@ function create() {
             nameText.setText("");
             dialogueText.setText("");
             dialogueIndex = 0;
-            nameText.setText("Princess");
+            nameText.setText("Sylvain");
             dialogueText.setText("Es-tu prêt ? (oui/non)");
         }
     });
@@ -71,14 +71,14 @@ function create() {
 
     this.input.keyboard.on("keydown-O", () => {
         if (dialogueText.text.includes("Es-tu prêt ?")) {
-            nameText.setText("Princess");
+            nameText.setText("Sylvain");
             dialogueText.setText("Félicitations, tu es prêt !");
         }
     });
 
     this.input.keyboard.on("keydown-N", () => {
         if (dialogueText.text.includes("Es-tu prêt ?")) {
-            nameText.setText("Princess");
+            nameText.setText("Sylvain");
             dialogueText.setText("Dommage, tu es GAME OVER");
         }
     });
