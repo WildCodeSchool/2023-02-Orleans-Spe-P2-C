@@ -50,7 +50,6 @@ class SceneTwo extends Phaser.Scene {
 
     preload() {
         this.load.setBaseURL("../assets/images");
-        this.load.image('hero', 'hero.png');
         this.load.image('zacharius', 'heroz.png');
         this.load.image('sylvain', 'hero2z.png');
         this.load.image('code', 'code.png');
@@ -59,6 +58,8 @@ class SceneTwo extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(500, 0, 0, 0)
+
         const town = this.add.image(0, -150, 'town').setOrigin(0, 0).setScale(1.7);
 
         hero = this.add.image(-300, 150, 'hero').setOrigin(0, 0).setScale(1);

@@ -16,7 +16,7 @@ class SceneThree extends Phaser.Scene {
     {
         this.load.setBaseURL("../assets/images");
         this.load.image('pond', 'pond.png');
-        this.load.image('hero', 'heroz.png');
+        this.load.image('hero', 'hero.png');
         this.load.image('princess', 'princess.png');
         this.load.image('dialog', 'dialog-box.png');
     }

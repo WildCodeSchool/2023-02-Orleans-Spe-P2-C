@@ -13,7 +13,7 @@ const config = {
         createContainer: true,
     },
     scene:
-        [SceneTwo, SceneThree]
+        [SceneOne, SceneTwo, SceneThree]
 };
 
 const game = new Phaser.Game(config);
