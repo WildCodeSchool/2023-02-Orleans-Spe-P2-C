@@ -1,4 +1,4 @@
-import heartSystem from '../services/heartSystem.js';
+import heartSystem from '../services/health-system.js';
 
 let dialogueIndex = 0;
 class SceneThree extends Phaser.Scene {
