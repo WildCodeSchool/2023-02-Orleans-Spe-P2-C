@@ -1,23 +1,20 @@
-import heartSystem from './heartSystem.js';
+import heartSystem from '../service/heartSystem.js';
 class SceneTwo extends Phaser.Scene {
-    constructor ()
-    {
+    constructor() {
         super({ key: 'SceneTwo' });
     }
 
-    preload ()
-    {
+    preload() {
         this.load.image('town', 'assets/images/town.png');
         this.load.image('dialog-box', 'assets/images/dialog-box.png');
         this.load.image('heart', 'heart.webp');
     }
 
-    create ()
-    {
-        let town = this.add.image(0,-150,'town').setOrigin(0,0);
+    create() {
+        let town = this.add.image(0, -150, 'town').setOrigin(0, 0);
         town.setScale(1.7);
 
-        this.add.image(150,480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
+        this.add.image(150, 480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
 
         this.input.manager.enabled = true;
 
@@ -27,15 +24,14 @@ class SceneTwo extends Phaser.Scene {
         }
     }
 
-    update ()
-    {
+    update() {
         this.input.once('pointerdown', function (event) {
 
             this.scene.start('SceneThree');
 
         }, this);
-        }
+    }
 }
 
-const dialogTexts = [{name: 'name', sentence: 'hello darkness'}, {name: 'name', sentence:`I've come to talk`}, {name:'', sentence:'with you again'}]
+const dialogTexts = [{ name: 'name', sentence: 'hello darkness' }, { name: 'name', sentence: `I've come to talk` }, { name: '', sentence: 'with you again' }]
 export default SceneTwo;

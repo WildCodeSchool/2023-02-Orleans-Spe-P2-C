@@ -1,4 +1,4 @@
-import heartSystem from './heartSystem.js';
+import heartSystem from '../service/heartSystem.js';
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });

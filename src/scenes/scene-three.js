@@ -1,4 +1,4 @@
-import heartSystem from './heartSystem.js';
+import heartSystem from '../service/heartSystem.js';
 
 let hero
 let princess
@@ -9,13 +9,11 @@ let dialogueIndex = 0;
 
 class SceneThree extends Phaser.Scene {
 
-    constructor ()
-    {
+    constructor() {
         super({ key: 'SceneThree' });
     }
 
-    preload ()
-    {
+    preload() {
         this.load.setBaseURL("../assets/images");
         this.load.image('pond', 'pond.png');
         this.load.image('hero', 'heroz.png');
@@ -24,11 +22,10 @@ class SceneThree extends Phaser.Scene {
         this.load.image('heart', 'heart.webp');
     }
 
-    create ()
-    {
-        let pond = this.add.image(-150,0,'pond').setOrigin(0).setScale(0.7);
+    create() {
+        let pond = this.add.image(-150, 0, 'pond').setOrigin(0).setScale(0.7);
 
-        let dialogBox = this.add.image(150,480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
+        let dialogBox = this.add.image(150, 480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
         hero = this.add.image(150, 460, 'hero').setScale(1.3);
         princess = this.add.image(1100, 550, 'princess').setScale(1.3);
         dialogueText = this.add.text(220, 555, "", {
@@ -86,8 +83,7 @@ class SceneThree extends Phaser.Scene {
         }
     }
 
-    update ()
-    {
+    update() {
         this.input.once('pointerdown', function (event) {
 
             this.scene.start('SceneOne');
