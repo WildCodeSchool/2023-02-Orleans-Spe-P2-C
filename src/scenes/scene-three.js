@@ -1,3 +1,5 @@
+import heartSystem from './heartSystem.js';
+
 let hero
 let princess
 let dialog
@@ -19,6 +21,7 @@ class SceneThree extends Phaser.Scene {
         this.load.image('hero', 'heroz.png');
         this.load.image('princess', 'princess.png');
         this.load.image('dialog', 'dialog-box.png');
+        this.load.image('heart', 'heart.webp');
     }
 
     create ()
@@ -76,6 +79,11 @@ class SceneThree extends Phaser.Scene {
                 dialogueText.setText("Dommage, tu es GAME OVER");
             }
         });
+
+        for (let i = 0; i < heartSystem.lives; i++) {
+            let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+            heartSystem.hearts.push(heart);
+        }
     }
 
     update ()
