@@ -62,6 +62,7 @@ class SceneTwo extends Phaser.Scene {
         const town = this.add.image(0, -150, 'town').setOrigin(0, 0).setScale(1.7);
 
         hero = this.add.image(-300, 150, 'hero').setOrigin(0, 0).setScale(1);
+
         zacharius = this.add.image(1300, 205, 'zacharius').setOrigin(0, 0).setScale(1.3);
         zacharius.flipX = true;
 
@@ -70,8 +71,6 @@ class SceneTwo extends Phaser.Scene {
         const dialogBox = this.add.image(150, 480, 'dialog-box').setOrigin(0).setScale(0.8).setVisible(false);
 
         sylvain = this.add.image(-300, 1000, 'sylvain').setOrigin(0, 0).setScale(1.1).setVisible(false);
-
-        this.input.manager.enabled = true;
 
         this.moveIn(hero, 0);
 
@@ -87,6 +86,8 @@ class SceneTwo extends Phaser.Scene {
             wordWrap: {width: 850, useAdvancedWrap: true},
         }).setVisible(false);
 
+        //long and contrived conditions game to get the right dialog
+        // at the right time and change scene
         this.input.keyboard.on("keydown", () => {
             if (step === 1) {
                 this.moveIn(zacharius, 900);
@@ -101,10 +102,14 @@ class SceneTwo extends Phaser.Scene {
             if (step === 2) {
                 counter = -1;
                 this.optionDialog();
-                this.input.keyboard.on('keydown-A', () => {return [goodAnswer = true, step = 3]})
-                this.input.keyboard.on('keydown-B', () => {return [goodAnswer = false, step = 3]})
+                this.input.keyboard.on('keydown-A', () => {
+                    return [goodAnswer = true, step = 3]
+                })
+                this.input.keyboard.on('keydown-B', () => {
+                    return [goodAnswer = false, step = 3]
+                })
             }
-            if (step ===3 && goodAnswer) {
+            if (step === 3 && goodAnswer) {
                 option1.setVisible(false);
                 option2.setVisible(false);
                 counter++;
@@ -115,6 +120,7 @@ class SceneTwo extends Phaser.Scene {
                 }
             }
             if (step === 3 && goodAnswer === false) {
+                //will add lost heart or gameover page later
                 option1.setVisible(false);
                 option2.setVisible(false);
                 counter++;
@@ -127,10 +133,15 @@ class SceneTwo extends Phaser.Scene {
             if (step === 4) {
                 counter = -1;
                 this.optionDialog();
-                this.input.keyboard.on('keydown-A', () => {return [goodAnswer = false, step = 5]})
-                this.input.keyboard.on('keydown-B', () => {return [goodAnswer = true, step = 3]})
+                this.input.keyboard.on('keydown-A', () => {
+                    return [goodAnswer = false, step = 5]
+                })
+                this.input.keyboard.on('keydown-B', () => {
+                    return [goodAnswer = true, step = 3]
+                })
             }
             if (step === 5) {
+                //will add gameover page later
                 dialog.setText('you died');
             }
             if (isDialogOver === true) {
@@ -140,21 +151,23 @@ class SceneTwo extends Phaser.Scene {
                 });
             }
         })
-
-        this.input.manager.enabled = true;
     }
 
     continueDialog = (dialogType) => {
         dialog.setText(dialogType[counter].sentence).setVisible(true);
         name.setText(dialogType[counter].name).setVisible(true);
-        if (dialogType === dialogFirstPart && counter === 3 ){
+
+        //shows code at appropriate part
+        if (dialogType === dialogFirstPart && counter === 3) {
             code.setVisible(true);
         } else {
             code.setVisible(false);
         }
-        if(dialogType[counter].name === 'Zacharius' || dialogType[counter].name === 'Personnage cool') {
+
+        //zoom in on current character speaking and sylvain appearing at the end
+        if (dialogType[counter].name === 'Zacharius' || dialogType[counter].name === 'Personnage cool') {
             this.zoom(zacharius);
-        } else if (dialogType[counter].name === 'Sylvain'){
+        } else if (dialogType[counter].name === 'Sylvain') {
             sylvain.setVisible(true);
             this.tweens.add({
                 targets: sylvain,
@@ -169,11 +182,13 @@ class SceneTwo extends Phaser.Scene {
     }
 
     optionDialog = () => {
+        //setting right question for right time
         if (step === 2) {
             dialog.setText(dialogOption[0].sentence1).setVisible(true);
         } else {
             dialog.setText(dialogOption[0].sentence2).setVisible(true);
         }
+
         name.setText(dialogOption[0].name).setVisible(true);
         option1 = this.add.text(300, 590, dialogOption[0].option1, {
             fontSize: '40px',
@@ -186,7 +201,7 @@ class SceneTwo extends Phaser.Scene {
         this.zoom(zacharius);
     }
 
-    zoom(image){
+    zoom(image) {
         let scale = image.scale;
         let targetScale = scale * 1.05;
 
