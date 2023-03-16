@@ -4,6 +4,10 @@ body {
     background-color: var(--black);
 }
 
+#phaser-game {
+    margin-top: 2.5rem;
+}
+
 .welcome,
 h1,
 p,
