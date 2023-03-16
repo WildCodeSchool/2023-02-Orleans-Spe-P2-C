@@ -1,0 +1,188 @@
+@font-face {
+    font-family: 'bloodlust.ttf';
+    src: url('../fonts/bloodlust.ttf') format('truetype'),
+}
+
+.App {
+    text-align: center;
+    height: 100%;
+    margin: auto;
+}
+
+body {
+    background-color: black;
+}
+
+.lost {
+    letter-spacing: 2px;
+    color: white;
+    margin: 20px auto;
+    width: 100%;
+    font-size: 220px;
+    font-family: "bloodlust.ttf";
+    animation: bloody 4s ease infinite alternate;
+    color: white;
+    padding-top: 50px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    margin: auto;
+}
+
+@keyframes bloody {
+    0% {
+        text-shadow: 0px 1px 3px #CC9C1A;
+        letter-spacing: -0.025em;
+    }
+
+    100% {
+        text-shadow: 0px 5px 3px #CC9C1A, 0px 10px 3px #CC9C1A, 0px 15px 3px #CC9C1A,
+            0px 20px 3px #CC9C1A, 0px 25px 3px #CC9C1A, 0px 30px 3px #CC9C1A,
+            0px 35px 3px #CC9C1A, 0px 40px 3px #CC9C1A, 0px 45px 3px #CC9C1A,
+            0px 50px 3px #CC9C1A, 0px 55px 3px #CC9C1A, 0px 60px 3px #CC9C1A;
+    }
+}
+
+.note {
+    color: #CC9C1A;
+    font-size: 220px;
+    margin: 50px auto;
+    font-family: "bloodlust.ttf";
+    animation: grow 5s ease infinite alternate;
+}
+
+@keyframes grow {
+    0% {
+        letter-spacing: -0.03em;
+    }
+
+    100% {
+        letter-spacing: 0em;
+    }
+}
+
+.container {
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.blooddrop {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    margin: 0;
+    top: 50px;
+    background-color: #CC9C1A;
+    border-radius: 50%;
+    animation: drip 4s cubic-bezier(1, 0, 0.62, 0.2) infinite;
+}
+
+.blooddrop:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 23px solid #CC9C1A;
+    top: -20px;
+    left: 1px;
+}
+
+.blooddrop:nth-of-type(1) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: -170px;
+    animation-delay: 1s;
+}
+
+.blooddrop:nth-of-type(2) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: -120px;
+    animation-delay: 3s;
+}
+
+.blooddrop:nth-of-type(3) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: -100px;
+    animation-delay: 4s;
+}
+
+.blooddrop:nth-of-type(4) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: -50px;
+    animation-delay: 5.5s;
+}
+
+.blooddrop:nth-of-type(5) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 3px;
+    animation-delay: 4.5s;
+}
+
+.blooddrop:nth-of-type(6) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 30px;
+    animation-delay: 3.2s;
+}
+
+.blooddrop:nth-of-type(7) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 60px;
+    animation-delay: 4.8s;
+}
+
+.blooddrop:nth-of-type(8) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 70px;
+    animation-delay: 2s;
+}
+
+.blooddrop:nth-of-type(9) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 100px;
+    animation-delay: 1s;
+}
+
+.blooddrop:nth-of-type(10) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 115px;
+    animation-delay: 0.5s;
+}
+
+.blooddrop:nth-of-type(11) {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 155px;
+    animation-delay: 1.5s;
+}
+
+@keyframes drip {
+    0% {
+        top: -95px;
+    }
+
+    100% {
+        top: 550px;
+    }
+}
