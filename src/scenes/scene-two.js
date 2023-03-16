@@ -61,8 +61,8 @@ class SceneTwo extends Phaser.Scene {
     create() {
         const town = this.add.image(0, -150, 'town').setOrigin(0, 0).setScale(1.7);
 
-        hero = this.add.image(0, 150, 'hero').setOrigin(0, 0).setScale(1);
-        zacharius = this.add.image(900, 205, 'zacharius').setOrigin(0, 0).setScale(1.3);
+        hero = this.add.image(-300, 150, 'hero').setOrigin(0, 0).setScale(1);
+        zacharius = this.add.image(1300, 205, 'zacharius').setOrigin(0, 0).setScale(1.3);
         zacharius.flipX = true;
 
         code = this.add.image(650, 250, 'code').setScale(0.4).setVisible(false);
@@ -72,6 +72,8 @@ class SceneTwo extends Phaser.Scene {
         sylvain = this.add.image(-300, 1000, 'sylvain').setOrigin(0, 0).setScale(1.1).setVisible(false);
 
         this.input.manager.enabled = true;
+
+        this.moveIn(hero, 0);
 
         dialog = this.add.text(220, 555, '', {
             fontSize: '30px',
@@ -87,6 +89,7 @@ class SceneTwo extends Phaser.Scene {
 
         this.input.keyboard.on("keydown", () => {
             if (step === 1) {
+                this.moveIn(zacharius, 900);
                 counter++
                 dialogBox.setVisible(true);
                 if (counter >= dialogFirstPart.length) {
@@ -131,7 +134,10 @@ class SceneTwo extends Phaser.Scene {
                 dialog.setText('you died');
             }
             if (isDialogOver === true) {
-                this.scene.start('SceneThree')
+                this.cameras.main.fadeOut(1000, 0, 0, 0);
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                    this.scene.start('SceneThree')
+                });
             }
         })
 
@@ -191,6 +197,15 @@ class SceneTwo extends Phaser.Scene {
             duration: 300,
             yoyo: true,
             ease: 'Power1'
+        });
+    }
+
+    moveIn(character, x) {
+        this.tweens.add({
+            targets: character,
+            x: x,
+            duration: 2000,
+            ease: 'Power2'
         });
     }
 }

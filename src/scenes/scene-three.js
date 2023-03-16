@@ -23,6 +23,8 @@ class SceneThree extends Phaser.Scene {
 
     create ()
     {
+        this.cameras.main.fadeIn(500, 0, 0, 0)
+
         let pond = this.add.image(-150,0,'pond').setOrigin(0).setScale(0.7);
 
         let dialogBox = this.add.image(150,480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
