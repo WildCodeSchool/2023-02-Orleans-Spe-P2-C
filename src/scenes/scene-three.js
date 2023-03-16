@@ -1,6 +1,5 @@
 import heartSystem from '../services/heartSystem.js';
 
-
 let dialogueIndex = 0;
 class SceneThree extends Phaser.Scene {
 
