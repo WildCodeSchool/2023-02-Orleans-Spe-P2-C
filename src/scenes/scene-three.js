@@ -22,6 +22,11 @@ class SceneThree extends Phaser.Scene {
 
         let pond = this.add.image(-150,0,'pond').setOrigin(0).setScale(0.7);
 
+        const hearts = [];
+        for (let i = 0; i < heartSystem.lives; i++) {
+            hearts[i] = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+        }
+
         const dialogBox = this.add.image(150, 480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
         const hero = this.add.image(150, 460, 'hero').setScale(1.3);
         const princess = this.add.image(1100, 550, 'princess').setScale(1.3);
@@ -38,7 +43,7 @@ class SceneThree extends Phaser.Scene {
         }).setDepth(2);
 
         let dialogue = [
-            { name: 'Sylvain', sentence: 'Bonjour Hero !' },
+            { name: 'maknifik damoiselle', sentence: 'Bonjour Hero !' },
             { name: 'Zakarius', sentence: `....` },
             { name: 'Sylvain', sentence: "Aujourd'hui est le jour de ton avènement !" }
         ];
@@ -73,11 +78,6 @@ class SceneThree extends Phaser.Scene {
                 dialogueText.setText("Dommage, tu es GAME OVER");
             }
         });
-
-        for (let i = 0; i < heartSystem.lives; i++) {
-            let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
-            heartSystem.hearts.push(heart);
-        }
     }
 
     update() {

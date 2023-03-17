@@ -15,6 +15,12 @@ class SceneOne extends Phaser.Scene {
 
     create() {
         this.add.image(0, 0, 'forest').setOrigin(0).setScale(0.5).setDepth(1);
+
+        const hearts = [];
+        for (let i = 0; i < heartSystem.lives; i++) {
+            hearts[i] = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+        }
+
         this.characters = [
             new Character(this, 0, 210, 'hero', 1.3, 'Zakarius', [
                 'Salut Sylvain',
@@ -45,11 +51,6 @@ class SceneOne extends Phaser.Scene {
 
         this.currentCharacterIndex = 0;
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
-
-        for (let i = 0; i < heartSystem.lives; i++) {
-            let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
-            heartSystem.hearts.push(heart);
-        }
 
         this.input.once('pointerdown', function (event) {
             this.cameras.main.fadeOut(1000, 0, 0, 0);
