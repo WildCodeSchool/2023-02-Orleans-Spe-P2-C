@@ -126,7 +126,7 @@ class SceneTwo extends Phaser.Scene {
                     this.continueDialog(dialogRight);
                 }
             }
-            if (step === 3 && goodAnswer === false) {
+            if (step === 3 && !goodAnswer) {
                 //will add lost heart or gameover page later
                 option1.setVisible(false);
                 option2.setVisible(false);
@@ -209,8 +209,8 @@ class SceneTwo extends Phaser.Scene {
     }
 
     zoom(image) {
-        let scale = image.scale;
-        let targetScale = scale * 1.05;
+        const scale = image.scale;
+        const targetScale = scale * 1.05;
 
         this.tweens.add({
             targets: image,
