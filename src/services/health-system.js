@@ -1,9 +1,11 @@
 const heartSystem = {
     lives: 3,
     hearts: [],
-    loseLife: function () {
-        this.lives--;
-        this.hearts[this.lives].setVisible(false);
+    loseLife: function() {
+        if (this.lives > 0) {
+            this.lives--;
+            this.hearts[this.lives].destroy();
+        }
     }
 };
 

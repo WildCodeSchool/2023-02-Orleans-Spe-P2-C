@@ -29,7 +29,7 @@ class SceneOne extends Phaser.Scene {
                 'Oui et toi?',
                 'à bientôt'
             ])
-        ],
+        ];
 
         this.move();
 
