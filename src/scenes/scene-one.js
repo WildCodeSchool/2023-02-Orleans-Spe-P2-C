@@ -29,7 +29,7 @@ class SceneOne extends Phaser.Scene {
                 'Oui et toi?',
                 'à bientôt'
             ])
-        ];
+        ],
 
         this.move();
 
@@ -52,7 +52,7 @@ class SceneOne extends Phaser.Scene {
 
 
         for (let i = 0; i < heartSystem.lives; i++) {
-            let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+            const heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
             heartSystem.hearts.push(heart);
         }
 
@@ -108,8 +108,8 @@ class SceneOne extends Phaser.Scene {
     }
 
     showDialogue() {
-        let character = this.characters[this.currentCharacterIndex];
-        let currentDialogue = character.getCurrentDialogue();
+        const character = this.characters[this.currentCharacterIndex];
+        const currentDialogue = character.getCurrentDialogue();
 
         if (!currentDialogue) {
             if (!this.minigameActive && this.dialogueCompleted) {
@@ -180,7 +180,7 @@ class Character {
 
     getCurrentDialogue() {
         if (this.currentDialogueIndex < this.dialogues.length) {
-            let dialogue = this.dialogues[this.currentDialogueIndex];
+            const dialogue = this.dialogues[this.currentDialogueIndex];
             this.currentDialogueIndex++;
             return dialogue;
         } else if (this.minigamePrompt) {
@@ -190,8 +190,8 @@ class Character {
     }
 
     zoom() {
-        let scale = this.image.scale;
-        let targetScale = scale * 1.1;
+        const scale = this.image.scale;
+        const targetScale = scale * 1.1;
 
         this.scene.tweens.add({
             targets: this.image,
