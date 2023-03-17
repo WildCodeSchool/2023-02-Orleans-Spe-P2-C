@@ -11,9 +11,8 @@ let zacharius;
 let hero;
 let code;
 let sylvain;
-
 const dialogFirstPart = [
-    {name: 'Personnage cool', sentence: `Hey ! Toi là-bas. Tu ne serais pas le héros que l'on attend?`},
+    {name: 'Maknifik damoiselle', sentence: `Hey ! Toi là-bas. Tu ne serais pas le héros que l'on attend?`},
     {name: 'Hero', sentence: `Si. Complètement. C’est moi. Le héros.`},
     {
         name: 'Zacharius',
@@ -61,12 +60,13 @@ class SceneTwo extends Phaser.Scene {
 
     create() {
         this.cameras.main.fadeIn(500, 0, 0, 0);
-        for (let i = 0; i < heartSystem.lives; i++) {
-            let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
-            heartSystem.hearts.push(heart);
-        }
 
         const town = this.add.image(0, -150, 'town').setOrigin(0, 0).setScale(1.7);
+
+        const hearts = [];
+        for (let i = 0; i < heartSystem.lives; i++) {
+            hearts[i] = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+        }
 
         hero = this.add.image(-300, 150, 'hero').setOrigin(0, 0).setScale(1);
 
@@ -87,7 +87,7 @@ class SceneTwo extends Phaser.Scene {
             wordWrap: {width: 850, useAdvancedWrap: true}
             ,
         });
-        name = this.add.text(265, 505, '', {
+        name = this.add.text(260, 505, '', {
             fontSize: '35px',
             fontFamily: 'VT323',
             wordWrap: {width: 850, useAdvancedWrap: true},
@@ -127,10 +127,17 @@ class SceneTwo extends Phaser.Scene {
                 }
             }
             if (step === 3 && !goodAnswer) {
-                //will add lost heart or gameover page later
                 option1.setVisible(false);
                 option2.setVisible(false);
                 counter++;
+                if (counter === 0) {
+                    if (heartSystem.lives > 1) {
+                        heartSystem.loseLife();
+                        hearts[hearts.length-1].setVisible(false);
+                    } else {
+                        window.location.replace("./gameOver.html");
+                    }
+                }
                 if (counter >= dialogWrong.length) {
                     step = 4;
                 } else {
@@ -148,8 +155,7 @@ class SceneTwo extends Phaser.Scene {
                 })
             }
             if (step === 5) {
-                //will add gameover page later
-                dialog.setText('you died');
+                window.location.replace("./gameOver.html");
             }
             if (isDialogOver === true) {
                 this.cameras.main.fadeOut(1000, 0, 0, 0);
