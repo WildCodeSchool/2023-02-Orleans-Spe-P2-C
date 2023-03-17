@@ -1,24 +1,19 @@
-let hero
-let princess
-let dialog
-let dialogueText
-let nameText
-let dialogueIndex = 0;
+import heartSystem from '../services/health-system.js';
 
+let dialogueIndex = 0;
 class SceneThree extends Phaser.Scene {
 
-    constructor ()
-    {
+    constructor() {
         super({ key: 'SceneThree' });
     }
 
-    preload ()
-    {
+    preload() {
         this.load.setBaseURL("../assets/images");
         this.load.image('pond', 'pond.png');
         this.load.image('hero', 'hero.png');
         this.load.image('princess', 'princess.png');
         this.load.image('dialog', 'dialog-box.png');
+        this.load.image('heart', 'heart.webp');
     }
 
     create ()
@@ -27,16 +22,16 @@ class SceneThree extends Phaser.Scene {
 
         let pond = this.add.image(-150,0,'pond').setOrigin(0).setScale(0.7);
 
-        let dialogBox = this.add.image(150,480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
-        hero = this.add.image(150, 460, 'hero').setScale(1.3);
-        princess = this.add.image(1100, 550, 'princess').setScale(1.3);
-        dialogueText = this.add.text(220, 555, "", {
+        const dialogBox = this.add.image(150, 480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
+        const hero = this.add.image(150, 460, 'hero').setScale(1.3);
+        const princess = this.add.image(1100, 550, 'princess').setScale(1.3);
+        const dialogueText = this.add.text(220, 555, "", {
             fontSize: "25px",
             color: "#fff",
             wordWrap: { width: 1000, useAdvancedWrap: true },
         }).setDepth(2);
 
-        nameText = this.add.text(265, 505, "", {
+        const nameText = this.add.text(265, 505, "", {
             fontSize: "30px",
             color: "#fff",
             wordWrap: { width: 1000, useAdvancedWrap: true },
@@ -78,10 +73,14 @@ class SceneThree extends Phaser.Scene {
                 dialogueText.setText("Dommage, tu es GAME OVER");
             }
         });
+
+        for (let i = 0; i < heartSystem.lives; i++) {
+            let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+            heartSystem.hearts.push(heart);
+        }
     }
 
-    update ()
-    {
+    update() {
         this.input.once('pointerdown', function (event) {
 
             this.scene.start('SceneOne');

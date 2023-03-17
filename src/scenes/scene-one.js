@@ -1,3 +1,4 @@
+import heartSystem from '../services/health-system.js';
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });
@@ -9,6 +10,7 @@ class SceneOne extends Phaser.Scene {
         this.load.image('hero', 'hero.png');
         this.load.image('hero2', 'hero2z.png');
         this.load.image('box', 'dialog-box.png');
+        this.load.image('heart', 'heart.webp');
     }
 
     create() {
@@ -28,7 +30,7 @@ class SceneOne extends Phaser.Scene {
 
         this.move();
 
-        this.dialogueBox = this.add.image(150,480, 'box').setOrigin(0).setScale(0.8).setDepth(2).setVisible(false);
+        this.dialogueBox = this.add.image(150, 480, 'box').setOrigin(0).setScale(0.8).setDepth(2).setVisible(false);
         this.characterNameText = this.add.text(265, 505, '', {
             font: '30px Arial',
             fill: '#ffffff',
@@ -44,15 +46,16 @@ class SceneOne extends Phaser.Scene {
         this.currentCharacterIndex = 0;
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
 
-        this.input.once('pointerdown', function (event) {
+        for (let i = 0; i < heartSystem.lives; i++) {
+            let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+            heartSystem.hearts.push(heart);
+        }
 
+        this.input.once('pointerdown', function (event) {
             this.cameras.main.fadeOut(1000, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('SceneTwo')
-            });
-
-        }, this);
-
+            this.scene.start('SceneTwo')
+        })}, this);
     }
 
     showDialogue() {

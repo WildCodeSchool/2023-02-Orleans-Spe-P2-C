@@ -1,3 +1,4 @@
+import heartSystem from '../services/health-system.js';
 let counter = -1;
 let dialog;
 let name;
@@ -55,10 +56,15 @@ class SceneTwo extends Phaser.Scene {
         this.load.image('code', 'code.png');
         this.load.image('town', 'town.png');
         this.load.image('dialog-box', 'dialog-box.png');
+        this.load.image('heart', 'heart.webp');
     }
 
     create() {
-        this.cameras.main.fadeIn(500, 0, 0, 0)
+        this.cameras.main.fadeIn(500, 0, 0, 0);
+        for (let i = 0; i < heartSystem.lives; i++) {
+            let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+            heartSystem.hearts.push(heart);
+        }
 
         const town = this.add.image(0, -150, 'town').setOrigin(0, 0).setScale(1.7);
 
@@ -80,12 +86,12 @@ class SceneTwo extends Phaser.Scene {
             fontFamily: 'VT323',
             wordWrap: {width: 850, useAdvancedWrap: true}
             ,
-        }).setVisible(false);
+        });
         name = this.add.text(265, 505, '', {
             fontSize: '35px',
             fontFamily: 'VT323',
             wordWrap: {width: 850, useAdvancedWrap: true},
-        }).setVisible(false);
+        });
 
         //long and contrived conditions game to get the right dialog
         // at the right time and change scene
