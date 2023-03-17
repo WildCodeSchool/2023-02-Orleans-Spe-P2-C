@@ -130,6 +130,8 @@ class SceneTwo extends Phaser.Scene {
                 option1.setVisible(false);
                 option2.setVisible(false);
                 counter++;
+                //check if counter is 0 to only take one life away
+                //and not at each keydown
                 if (counter === 0) {
                     if (heartSystem.lives > 1) {
                         heartSystem.loseLife();
