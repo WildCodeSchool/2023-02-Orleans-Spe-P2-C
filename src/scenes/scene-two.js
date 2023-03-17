@@ -11,8 +11,9 @@ let zacharius;
 let hero;
 let code;
 let sylvain;
+let music;
 const dialogFirstPart = [
-    {name: 'Maknifik damoiselle', sentence: `Hey ! Toi là-bas. Tu ne serais pas le héros que l'on attend?`},
+    {name: 'Personnage cool', sentence: `Hey ! Toi là-bas. Tu ne serais pas le héros que l'on attend?`},
     {name: 'Hero', sentence: `Si. Complètement. C’est moi. Le héros.`},
     {
         name: 'Zacharius',
@@ -49,19 +50,24 @@ class SceneTwo extends Phaser.Scene {
     }
 
     preload() {
-        this.load.setBaseURL("../assets/images");
-        this.load.image('zacharius', 'heroz.png');
-        this.load.image('sylvain', 'hero2z.png');
-        this.load.image('code', 'code.png');
-        this.load.image('town', 'town.png');
-        this.load.image('dialog-box', 'dialog-box.png');
-        this.load.image('heart', 'heart.webp');
+        this.load.setBaseURL("../assets/");
+        this.load.image('zacharius', 'images/heroz.png');
+        this.load.image('sylvain', 'images/hero2z.png');
+        this.load.image('code', 'images/code.png');
+        this.load.image('town', 'images/town.png');
+        this.load.image('dialog-box', 'images/dialog-box.png');
+        this.load.image('heart', 'images/heart.webp');
+        this.load.audio('music2',['musics/Music2.ogg','musics/Music2.mp3']);
     }
 
     create() {
         this.cameras.main.fadeIn(500, 0, 0, 0);
 
         const town = this.add.image(0, -150, 'town').setOrigin(0, 0).setScale(1.7);
+        const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
+        const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
+
+        music = this.sound.add('music2', { loop: true });
 
         const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {
@@ -160,12 +166,15 @@ class SceneTwo extends Phaser.Scene {
                 window.location.replace("./gameOver.html");
             }
             if (isDialogOver === true) {
+                music.stop();
                 this.cameras.main.fadeOut(1000, 0, 0, 0);
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                     this.scene.start('SceneThree')
                 });
             }
         })
+        musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
+        muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
     }
 
     continueDialog = (dialogType) => {

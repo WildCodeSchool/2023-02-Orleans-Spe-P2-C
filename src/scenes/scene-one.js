@@ -1,20 +1,31 @@
 import heartSystem from '../services/health-system.js';
+
+let music;
+
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });
     }
 
     preload() {
-        this.load.setBaseURL("../assets/images");
-        this.load.image('forest', 'mgs.png');
-        this.load.image('hero', 'hero.png');
-        this.load.image('hero2', 'hero2z.png');
-        this.load.image('box', 'dialog-box.png');
-        this.load.image('heart', 'heart.webp');
+
+        this.load.setBaseURL("../assets/");
+        this.load.image('forest', 'images/mgs.png');
+        this.load.image('hero', 'images/hero.png');
+        this.load.image('hero2', 'images/hero2z.png');
+        this.load.image('box', 'images/dialog-box.png');
+        this.load.image('heart', 'images/heart.webp');
+        this.load.image('musicIcon', 'images/musical.png');
+        this.load.image('muteIcon', 'images/mute.png');
+        this.load.audio('music1',['musics/Music1.ogg','musics/Music1.mp3']);
     }
 
     create() {
         this.add.image(0, 0, 'forest').setOrigin(0).setScale(0.5).setDepth(1);
+        const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
+        const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
+
+        music = this.sound.add('music1', { loop: true });
 
         const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {
@@ -53,10 +64,14 @@ class SceneOne extends Phaser.Scene {
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
 
         this.input.once('pointerdown', function (event) {
+            music.stop();
             this.cameras.main.fadeOut(1000, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('SceneTwo')
         })}, this);
+
+        musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
+        muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
     }
 
     showDialogue() {

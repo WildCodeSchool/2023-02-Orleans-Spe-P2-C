@@ -1,5 +1,6 @@
 import heartSystem from '../services/health-system.js';
 
+let music;
 let dialogueIndex = 0;
 class SceneThree extends Phaser.Scene {
 
@@ -8,12 +9,13 @@ class SceneThree extends Phaser.Scene {
     }
 
     preload() {
-        this.load.setBaseURL("../assets/images");
-        this.load.image('pond', 'pond.png');
-        this.load.image('hero', 'hero.png');
-        this.load.image('princess', 'princess.png');
-        this.load.image('dialog', 'dialog-box.png');
-        this.load.image('heart', 'heart.webp');
+        this.load.setBaseURL("../assets/");
+        this.load.image('pond', 'images/pond.png');
+        this.load.image('hero', 'images/hero.png');
+        this.load.image('princess', 'images/princess.png');
+        this.load.image('dialog', 'images/dialog-box.png');
+        this.load.image('heart', 'images/heart.webp');
+        this.load.audio('music3',['musics/Music3.ogg','musics/Music3.mp3']);
     }
 
     create ()
@@ -21,6 +23,11 @@ class SceneThree extends Phaser.Scene {
         this.cameras.main.fadeIn(500, 0, 0, 0)
 
         let pond = this.add.image(-150,0,'pond').setOrigin(0).setScale(0.7);
+
+        const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
+        const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
+
+        music = this.sound.add('music3', { loop: true });
 
         const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {
@@ -78,14 +85,9 @@ class SceneThree extends Phaser.Scene {
                 dialogueText.setText("Dommage, tu es GAME OVER");
             }
         });
-    }
 
-    update() {
-        this.input.once('pointerdown', function (event) {
-
-            this.scene.start('SceneOne');
-
-        }, this);
+        musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
+        muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
     }
 }
 
