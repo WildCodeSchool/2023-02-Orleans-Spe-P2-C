@@ -177,6 +177,33 @@ body {
     animation-delay: 1.5s;
 }
 
+a {
+    text-decoration: none;
+    font-family: 'VT323', sans-serif;
+    color: var(--light);
+    font-size: 35px;
+}
+
+.play-again-button {
+    position: absolute;
+    left: 44%;
+    top: 78%;
+    border-radius: 5px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    background-color: var(--secondary);
+    transition: transform .2s;
+    border: 2px solid var(--light);
+    outline: 1px solid var(--light);
+    outline-offset: -5px;
+}
+
+.play-again-button:hover {
+    transform: scale(1.1);
+}
+
 @keyframes drip {
     0% {
         top: -95px;
