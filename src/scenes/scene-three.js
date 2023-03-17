@@ -10,14 +10,17 @@ class SceneThree extends Phaser.Scene {
     preload() {
         this.load.setBaseURL("../assets/images");
         this.load.image('pond', 'pond.png');
-        this.load.image('hero', 'heroz.png');
+        this.load.image('hero', 'hero.png');
         this.load.image('princess', 'princess.png');
         this.load.image('dialog', 'dialog-box.png');
         this.load.image('heart', 'heart.webp');
     }
 
-    create() {
-        const pond = this.add.image(-150, 0, 'pond').setOrigin(0).setScale(0.7);
+    create ()
+    {
+        this.cameras.main.fadeIn(500, 0, 0, 0)
+
+        let pond = this.add.image(-150,0,'pond').setOrigin(0).setScale(0.7);
 
         const dialogBox = this.add.image(150, 480, 'dialog-box').setOrigin(0).setScale(0.8).setDepth(2);
         const hero = this.add.image(150, 460, 'hero').setScale(1.3);

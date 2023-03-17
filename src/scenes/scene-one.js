@@ -7,7 +7,7 @@ class SceneOne extends Phaser.Scene {
     preload() {
         this.load.setBaseURL("../assets/images");
         this.load.image('forest', 'mgs.png');
-        this.load.image('hero', 'heroz.png');
+        this.load.image('hero', 'hero.png');
         this.load.image('hero2', 'hero2z.png');
         this.load.image('box', 'dialog-box.png');
         this.load.image('heart', 'heart.webp');
@@ -46,20 +46,16 @@ class SceneOne extends Phaser.Scene {
         this.currentCharacterIndex = 0;
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
 
-
         for (let i = 0; i < heartSystem.lives; i++) {
             let heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
             heartSystem.hearts.push(heart);
         }
 
-    }
-
-    update() {
         this.input.once('pointerdown', function (event) {
-
-            this.scene.start('SceneTwo');
-
-        }, this);
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.start('SceneTwo')
+        })}, this);
     }
 
     showDialogue() {
