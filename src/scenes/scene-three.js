@@ -1,17 +1,18 @@
 import heartSystem from '../services/health-system.js';
 
-let counter = -1;
-let dialog;
-let name;
-let option1;
-let option2;
-let option3
-let step = 1;
-let goodAnswer = false;
-let isDialogOver = false;
-let fauxSylvain;
-let hero;
-let sylvain;
+let counter = -1,
+    dialog,
+    name,
+    option1,
+    option2,
+    option3,
+    step = 1,
+    goodAnswer = false,
+    isDialogOver = false,
+    fauxSylvain,
+    hero,
+    sylvain;
+
 
 const dialogFirstPart = [
     { name: 'Maknifik damoiselle', sentence: 'Bonjour jeune hero. Tu es certainement là pour acquérir la relique sacrée du Saint Café?' },
