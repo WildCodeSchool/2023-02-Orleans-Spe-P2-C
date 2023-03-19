@@ -1,4 +1,5 @@
 import heartSystem from '../services/health-system.js';
+let hearts = [];
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });
@@ -50,10 +51,8 @@ class SceneOne extends Phaser.Scene {
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
         this.setupInputListenersForGame();
 
-
         for (let i = 0; i < heartSystem.lives; i++) {
-            const heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
-            heartSystem.hearts.push(heart);
+            hearts[i] = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
         }
 
         this.input.on('pointerdown', function (event) {
@@ -85,6 +84,7 @@ class SceneOne extends Phaser.Scene {
         } else {
             result = `${this.characters[1].name} gagne.`;
             heartSystem.loseLife();
+            hearts[hearts.length-1].setVisible(false);
         }
 
         this.dialogueText.setText(`${result}`).setVisible(true);
