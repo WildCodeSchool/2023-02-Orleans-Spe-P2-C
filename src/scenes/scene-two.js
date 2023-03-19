@@ -143,7 +143,7 @@ class SceneTwo extends Phaser.Scene {
                         heartSystem.loseLife();
                         hearts[hearts.length-1].setVisible(false);
                     } else {
-                        window.location.replace("./gameOver.html");
+                        window.location.replace("./game-over.html");
                     }
                 }
                 if (counter >= dialogWrong.length) {
@@ -163,7 +163,7 @@ class SceneTwo extends Phaser.Scene {
                 })
             }
             if (step === 5) {
-                window.location.replace("./gameOver.html");
+                window.location.replace("./game-over.html");
             }
             if (isDialogOver === true) {
                 music.stop();

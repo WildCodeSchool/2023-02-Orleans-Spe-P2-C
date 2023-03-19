@@ -3,6 +3,9 @@ import heartSystem from '../services/health-system.js';
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });
+        this.dialogueCompleted = false;
+        this.minigameActive = false;
+        this.userChoice = null;
     }
 
     preload() {
@@ -20,6 +23,7 @@ class SceneOne extends Phaser.Scene {
 
     create() {
         this.add.image(0, 0, 'forest').setOrigin(0).setScale(0.5).setDepth(1);
+
         const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
         const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
 
@@ -60,6 +64,7 @@ class SceneOne extends Phaser.Scene {
 
         this.currentCharacterIndex = 0;
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
+        this.setupInputListenersForGame();
 
         this.input.once('pointerdown', function (event) {
             music.stop();
@@ -70,20 +75,78 @@ class SceneOne extends Phaser.Scene {
 
         musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
         muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
+
+    }
+
+    update() {
+        if (this.minigameActive && this.userChoice) {
+            this.handleMinigameResult();
+        }
+    }
+    handleMinigameResult() {
+        const move1 = this.userChoice;
+        const move2 = this.characters[1].chooseMove();
+        let result;
+
+        if (move1 === move2) {
+            result = "égalité";
+        } else if (
+            (move1 === "php" && move2 === "javascript") ||
+            (move1 === "ruby" && move2 === "php") ||
+            (move1 === "javascript" && move2 === "ruby")
+        ) {
+            result = `${this.characters[0].name} gagne`;
+        } else {
+            result = `${this.characters[1].name} gagne.`;
+            heartSystem.loseLife();
+        }
+
+        this.dialogueText.setText(`${result}`).setVisible(true);
+        this.minigameActive = false;
+        this.userChoice = null;
+
+        if (result === `${this.characters[0].name} gagne`) {
+            setTimeout(() => {
+                this.scene.start('SceneTwo');
+            }, 2000);
+        } else if (heartSystem.lives > 0) {
+            this.minigameActive = true;
+            setTimeout(() => {
+                this.minigamePrompt();
+            }, 2000);
+        } else {
+            setTimeout(() => {
+                window.location.href = 'gameOver.html';
+            }, 2000);
+        }
+
     }
 
     showDialogue() {
-        let character = this.characters[this.currentCharacterIndex];
+        const character = this.characters[this.currentCharacterIndex];
+        const currentDialogue = character.getCurrentDialogue();
+
+        if (!currentDialogue) {
+            if (!this.minigameActive && this.dialogueCompleted) {
+                this.minigamePrompt();
+            }
+            return;
+        }
+
         this.characterNameText.setText(character.name).setVisible(true);
-        this.dialogueText.setText(character.getCurrentDialogue()).setVisible(true);
+        this.dialogueText.setText(currentDialogue).setVisible(true);
         this.dialogueBox.setVisible(true);
 
         character.zoom();
         this.currentCharacterIndex = (this.currentCharacterIndex + 1) % this.characters.length;
+
+        if (this.currentCharacterIndex === 0 && character.dialogues.length === character.currentDialogueIndex && !this.dialogueCompleted) {
+            this.dialogueCompleted = true;
+            this.characters[1].setMinigamePrompt("Choisissez : PHP (P), Javascript (J) ou Ruby (R)");
+        }
     }
 
     move() {
-
         this.characters[0].image.x = -300;
         this.characters[1].image.x = 700;
 
@@ -101,6 +164,19 @@ class SceneOne extends Phaser.Scene {
             ease: 'Power2'
         });
     }
+
+    setupInputListenersForGame() {
+        this.input.keyboard.on('keydown-P', () => this.userChoice = 'php');
+        this.input.keyboard.on('keydown-J', () => this.userChoice = 'javascript');
+        this.input.keyboard.on('keydown-R', () => this.userChoice = 'ruby');
+    }
+
+    minigamePrompt() {
+        this.minigameActive = true;
+        this.characterNameText.setText(this.characters[1].name).setVisible(true);
+        this.dialogueText.setText(this.characters[1].minigamePrompt).setVisible(true);
+        this.dialogueBox.setVisible(true);
+    }
 }
 
 class Character {
@@ -110,17 +186,27 @@ class Character {
         this.name = name;
         this.dialogues = dialogues;
         this.currentDialogueIndex = 0;
+        this.minigamePrompt = null;
+    }
+
+    setMinigamePrompt(prompt) {
+        this.minigamePrompt = prompt;
     }
 
     getCurrentDialogue() {
-        let dialogue = this.dialogues[this.currentDialogueIndex];
-        this.currentDialogueIndex = (this.currentDialogueIndex + 1) % this.dialogues.length;
-        return dialogue;
+        if (this.currentDialogueIndex < this.dialogues.length) {
+            const dialogue = this.dialogues[this.currentDialogueIndex];
+            this.currentDialogueIndex++;
+            return dialogue;
+        } else if (this.minigamePrompt) {
+            return this.minigamePrompt;
+        }
+        return '';
     }
 
     zoom() {
-        let scale = this.image.scale;
-        let targetScale = scale * 1.1;
+        const scale = this.image.scale;
+        const targetScale = scale * 1.1;
 
         this.scene.tweens.add({
             targets: this.image,
@@ -130,6 +216,11 @@ class Character {
             yoyo: true,
             ease: 'Power1'
         });
+    }
+
+    chooseMove() {
+        const moves = ['php', 'javascript', 'ruby'];
+        return moves[Math.floor(Math.random() * moves.length)];
     }
 }
 
