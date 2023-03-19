@@ -11,7 +11,7 @@ let zacharius;
 let hero;
 let code;
 let sylvain;
-let music;
+
 const dialogFirstPart = [
     {name: 'Personnage cool', sentence: `Hey ! Toi là-bas. Tu ne serais pas le héros que l'on attend?`},
     {name: 'Hero', sentence: `Si. Complètement. C’est moi. Le héros.`},
@@ -67,7 +67,7 @@ class SceneTwo extends Phaser.Scene {
         const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
         const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
 
-        music = this.sound.add('music2', { loop: true });
+        const music = this.sound.add('music2', { loop: true });
 
         const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {

@@ -1,6 +1,5 @@
 import heartSystem from '../services/health-system.js';
 
-let music;
 let dialogueIndex = 0;
 class SceneThree extends Phaser.Scene {
 
@@ -27,7 +26,7 @@ class SceneThree extends Phaser.Scene {
         const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
         const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
 
-        music = this.sound.add('music3', { loop: true });
+        const music = this.sound.add('music3', { loop: true });
 
         const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {
