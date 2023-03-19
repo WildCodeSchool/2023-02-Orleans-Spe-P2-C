@@ -9,7 +9,6 @@ class SceneOne extends Phaser.Scene {
     }
 
     preload() {
-
         this.load.setBaseURL("../assets/");
         this.load.image('forest', 'images/mgs.png');
         this.load.image('hero', 'images/hero.png');
