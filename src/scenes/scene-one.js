@@ -34,15 +34,23 @@ class SceneOne extends Phaser.Scene {
         }
 
         this.characters = [
-            new Character(this, 0, 210, 'hero', 1.3, 'Zakarius', [
-                'Salut Sylvain',
+            new Character(this, 0, 210, 'hero', 1.0, 'hero', [
+                'il y a quelqu\'un?',
+                'Ah bon? ',
                 'Tu vas bien ce matin?',
-                'Oui, à bientôt'
+                'Pardon Monsieur…',
+                'Euh… Je crois?',
+                'ah..'
             ]),
             new Character(this, 700, 110, 'hero2', 1.0, 'Sylvain', [
-                'Salut Signature stp',
-                'Oui et toi?',
-                'à bientôt'
+                'Bonjour jeune homme. Je t’attendais.',
+                'Oui. Tu es en retard, d’ailleurs. ',
+                'Sylvain. Je suis là pour ton premier checkpoint. Es-tu prêt?',
+                `On va faire un petit jeu de PHP, Javascript, Python. 
+                PHP gagne contre Javascript, Javascript gagne contre Python, 
+                et Python gagne contre PHP. Tu as compris?`,
+                'Pas le choix de toute manière.',
+                'Allons-y.'
             ])
         ];
 
@@ -64,13 +72,6 @@ class SceneOne extends Phaser.Scene {
         this.currentCharacterIndex = 0;
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
         this.setupInputListenersForGame();
-
-        this.input.once('pointerdown', function (event) {
-            music.stop();
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('SceneTwo')
-        })}, this);
 
         musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
         muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
@@ -94,7 +95,8 @@ class SceneOne extends Phaser.Scene {
             (move1 === "ruby" && move2 === "php") ||
             (move1 === "javascript" && move2 === "ruby")
         ) {
-            result = `${this.characters[0].name} gagne`;
+            result = `Bravo ${this.characters[0].name} tu as gagné. Tu peux donc continuer ton chemin. 
+            Mais n’oublie pas PHP est clairement supérieur à Javascript.`;
         } else {
             result = `${this.characters[1].name} gagne.`;
             heartSystem.loseLife();
@@ -104,9 +106,14 @@ class SceneOne extends Phaser.Scene {
         this.minigameActive = false;
         this.userChoice = null;
 
-        if (result === `${this.characters[0].name} gagne`) {
+        if (result === `Bravo ${this.characters[0].name} tu as gagné. Tu peux donc continuer ton chemin. 
+        Mais n’oublie pas PHP est clairement supérieur à Javascript.`) {
             setTimeout(() => {
-                this.scene.start('SceneTwo');
+                    music.stop();
+                    this.cameras.main.fadeOut(1000, 0, 0, 0);
+                    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                    this.scene.start('SceneTwo');
+                });
             }, 2000);
         } else if (heartSystem.lives > 0) {
             this.minigameActive = true;
@@ -142,6 +149,7 @@ class SceneOne extends Phaser.Scene {
         if (this.currentCharacterIndex === 0 && character.dialogues.length === character.currentDialogueIndex && !this.dialogueCompleted) {
             this.dialogueCompleted = true;
             this.characters[1].setMinigamePrompt("Choisissez : PHP (P), Javascript (J) ou Ruby (R)");
+            this.setupInputListenersForGame;
         }
     }
 
