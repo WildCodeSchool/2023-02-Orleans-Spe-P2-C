@@ -213,3 +213,31 @@ a {
         top: 550px;
     }
 }
+
+.crazy {
+    height: 190px;
+    width: 250px;
+    animation: swing 4s ease-in-out infinite;
+}
+
+@keyframes swing {
+    0% {
+        transform: translate(-300px, 250px);
+    }
+
+    25% {
+        transform: translate(50px, -250px);
+    }
+
+    50% {
+        transform: translate(250px, -150px);
+    }
+
+    75% {
+        transform: translate(450px, -250px);
+    }
+
+    100% {
+        transform: translate(650px, 0px);
+    }
+}
