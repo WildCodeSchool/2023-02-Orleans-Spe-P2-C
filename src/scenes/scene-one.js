@@ -49,9 +49,8 @@ class SceneOne extends Phaser.Scene {
                 'Bonjour jeune homme. Je t’attendais.',
                 'Oui. Tu es en retard, d’ailleurs. ',
                 'Sylvain. Je suis là pour ton premier checkpoint. Es-tu prêt?',
-                `On va faire un petit jeu de PHP, Javascript, Ruby. 
-                PHP gagne contre Javascript, Javascript gagne contre Ruby, 
-                et Python gagne contre PHP. Tu as compris?`,
+                `On va faire un petit jeu de PHP, Javascript, Ruby. PHP l’emporte sur Ruby en terme de backend, Ruby fait l'exploit d'être 20 fois plus lent que Javascript et l'emporte, et
+                JS l’emporte sur PHP en terme de front. Mais seulement front. Compris?`,
                 'Pas le choix de toute manière.',
                 'Allons-y.'
             ])
@@ -69,7 +68,8 @@ class SceneOne extends Phaser.Scene {
             font: '25px Arial',
             fill: '#ffffff',
             lineSpacing: 10,
-            padding: { top: 50 }
+            padding: { top: 50 },
+            wordWrap: { width: 850, useAdvancedWrap: true }
         }).setDepth(2).setVisible(false);
 
         this.currentCharacterIndex = 0;
