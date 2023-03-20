@@ -1,0 +1,115 @@
+body {
+    background-image: url('../images/pond.png');
+}
+
+.container {
+    position: relative;
+    height: 800px;
+    overflow: hidden;
+}
+
+img {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: slide-in 4s forwards;
+}
+
+img::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(circle at center, rgba(233, 14, 14, 0.2) 0%, rgba(248, 75, 7, 0.856) 50%, rgba(235, 0, 12, 0) 80%);
+    animation: particles 2s linear infinite;
+    z-index: 1;
+}
+
+@keyframes particles {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(25%, 25%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.text {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    animation: fade-in 2s forwards;
+    font-family: VT323;
+    font-size: 40px;
+    color: white;
+}
+
+@keyframes slide-in {
+    0% {
+        top: -100%;
+    }
+
+    100% {
+        top: 5%;
+    }
+}
+
+.blackout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 2;
+    opacity: 0;
+    animation: fade-in 1s 5s forwards;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+a {
+    text-decoration: none;
+    font-family: 'VT323', sans-serif;
+    color: var(--light);
+    font-size: 35px;
+}
+
+.play-again-button {
+    position: absolute;
+    left: 44%;
+    top: 78%;
+    border-radius: 5px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    background-color: var(--secondary);
+    transition: transform .2s;
+    border: 2px solid var(--light);
+    outline: 1px solid var(--light);
+    outline-offset: -5px;
+}
+
+.play-again-button:hover {
+    transform: scale(1.1);
+}
