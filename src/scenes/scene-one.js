@@ -3,7 +3,6 @@ import heartSystem from '../services/health-system.js';
 
 let hearts = [];
 
-
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });
@@ -21,7 +20,7 @@ class SceneOne extends Phaser.Scene {
         this.load.image('heart', 'images/heart.webp');
         this.load.image('musicIcon', 'images/musical.png');
         this.load.image('muteIcon', 'images/mute.png');
-        this.load.audio('music1',['musics/Music1.ogg','musics/Music1.mp3']);
+        this.load.audio('music1', ['musics/Music1.ogg', 'musics/Music1.mp3']);
     }
 
     create() {
@@ -77,8 +76,8 @@ class SceneOne extends Phaser.Scene {
         this.input.keyboard.on('keydown-X', () => this.showDialogue());
         this.setupInputListenersForGame();
 
-        musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
-        muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
+        musicIcon.on('pointerdown', function (pointer) { music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true) });
+        muteIcon.on('pointerdown', function (pointer) { music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false) });
 
     }
 
@@ -103,12 +102,15 @@ class SceneOne extends Phaser.Scene {
             result = `Bravo ${this.characters[0].name} tu as gagné. Tu peux donc continuer ton chemin. 
             Mais n’oublie pas PHP est clairement supérieur à Javascript.`;
             setTimeout(() => {
-            this.scene.start('SceneTwo');
+                this.scene.start('SceneTwo'); 
+                music.stop();
+                this.cameras.main.fadeOut(1000, 0, 0, 0);
             }, 2000);
+           
         } else {
             result = `${this.characters[1].name} gagne.`;
             heartSystem.loseLife();
-            hearts[hearts.length-1].setVisible(false);
+            hearts[hearts.length - 1].setVisible(false);
         }
 
         this.dialogueText.setText(`${result}`).setVisible(true);
@@ -234,4 +236,3 @@ class Character {
 }
 
 export default SceneOne;
-
