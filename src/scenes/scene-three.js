@@ -58,6 +58,7 @@ class SceneThree extends Phaser.Scene {
         super({ key: 'SceneThree' });
     }
     preload() {
+
         this.load.setBaseURL("../assets/images");
         this.load.image('Faux Sylvain', 'Sylvain-bis.png');
         this.load.image('pond', 'pond.png');
@@ -65,12 +66,19 @@ class SceneThree extends Phaser.Scene {
         this.load.image('heart', 'heart.webp');
         this.load.image('hero', 'hero.png');
         this.load.image('sylvain', 'heroz.png');
+        this.load.audio('music3',['musics/Music3.ogg','musics/Music3.mp3']);
+
     }
 
     create() {
         this.cameras.main.fadeIn(500, 0, 0, 0);
 
         const pond = this.add.image(0, -150, 'pond').setOrigin(0, 0).setScale(0.7);
+
+        const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
+        const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
+
+        const music = this.sound.add('music3', { loop: true });
 
         const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {
@@ -244,6 +252,11 @@ class SceneThree extends Phaser.Scene {
             duration: 2000,
             ease: 'Power2'
         });
+
+        });
+
+        musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
+        muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
     }
 }
 
