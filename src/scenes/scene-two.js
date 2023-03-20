@@ -50,7 +50,7 @@ class SceneTwo extends Phaser.Scene {
     }
 
     preload() {
-        this.load.setBaseURL("../assets/");
+        this.load.setBaseURL("../../assets/");
         this.load.image('zacharius', 'images/heroz.png');
         this.load.image('sylvain', 'images/hero2z.png');
         this.load.image('code', 'images/code.png');

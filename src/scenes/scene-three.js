@@ -59,7 +59,7 @@ class SceneThree extends Phaser.Scene {
     }
 
     preload() {
-        this.load.setBaseURL("../assets/");
+        this.load.setBaseURL("../../assets/");
         this.load.image('Faux Sylvain', 'images/Sylvain-bis.png');
         this.load.image('pond', 'images/pond.png');
         this.load.image('dialog-box', 'images/dialog-box.png');
