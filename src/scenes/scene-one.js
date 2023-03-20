@@ -1,4 +1,5 @@
 import heartSystem from '../services/health-system.js';
+
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });
@@ -8,16 +9,30 @@ class SceneOne extends Phaser.Scene {
     }
 
     preload() {
-        this.load.setBaseURL("../assets/images");
-        this.load.image('forest', 'mgs.png');
-        this.load.image('hero', 'heroz.png');
-        this.load.image('hero2', 'hero2z.png');
-        this.load.image('box', 'dialog-box.png');
-        this.load.image('heart', 'heart.webp');
+        this.load.setBaseURL("../assets/");
+        this.load.image('forest', 'images/mgs.png');
+        this.load.image('hero', 'images/hero.png');
+        this.load.image('hero2', 'images/hero2z.png');
+        this.load.image('box', 'images/dialog-box.png');
+        this.load.image('heart', 'images/heart.webp');
+        this.load.image('musicIcon', 'images/musical.png');
+        this.load.image('muteIcon', 'images/mute.png');
+        this.load.audio('music1',['musics/Music1.ogg','musics/Music1.mp3']);
     }
 
     create() {
         this.add.image(0, 0, 'forest').setOrigin(0).setScale(0.5).setDepth(1);
+
+        const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
+        const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
+
+        const music = this.sound.add('music1', { loop: true });
+
+        const hearts = [];
+        for (let i = 0; i < heartSystem.lives; i++) {
+            hearts[i] = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
+        }
+
         this.characters = [
             new Character(this, 0, 210, 'hero', 1.3, 'Zakarius', [
                 'Salut Sylvain',
@@ -50,17 +65,15 @@ class SceneOne extends Phaser.Scene {
         this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
         this.setupInputListenersForGame();
 
+        this.input.once('pointerdown', function (event) {
+            music.stop();
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.start('SceneTwo')
+        })}, this);
 
-        for (let i = 0; i < heartSystem.lives; i++) {
-            const heart = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
-            heartSystem.hearts.push(heart);
-        }
-
-        this.input.on('pointerdown', function (event) {
-            if (!this.minigameActive) {
-                this.scene.start('SceneTwo');
-            }
-        }, this);
+        musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
+        muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
 
     }
 
@@ -105,6 +118,7 @@ class SceneOne extends Phaser.Scene {
                 window.location.href = 'gameOver.html';
             }, 2000);
         }
+
     }
 
     showDialogue() {
