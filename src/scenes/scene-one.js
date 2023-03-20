@@ -2,7 +2,7 @@
 import heartSystem from '../services/health-system.js';
 
 let hearts = [];
-
+let music;
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });
@@ -29,7 +29,7 @@ class SceneOne extends Phaser.Scene {
         const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
         const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
 
-        const music = this.sound.add('music1', { loop: true });
+        music = this.sound.add('music1', { loop: true });
 
         for (let i = 0; i < heartSystem.lives; i++) {
             hearts[i] = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
@@ -101,10 +101,10 @@ class SceneOne extends Phaser.Scene {
         ) {
             result = `Bravo ${this.characters[0].name} tu as gagné. Tu peux donc continuer ton chemin. 
             Mais n’oublie pas PHP est clairement supérieur à Javascript.`;
+            music.stop();
             setTimeout(() => {
                 this.scene.start('SceneTwo'); 
-                music.stop();
-                this.cameras.main.fadeOut(1000, 0, 0, 0);
+               
             }, 2000);
            
         } else {
