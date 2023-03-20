@@ -1,0 +1,13 @@
+:root {
+    --origin: #CC9C1A;
+    --primary: #ffffff;
+    --secondary: #CC9C1A;
+    --light: white;
+    --black: rgb(0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
