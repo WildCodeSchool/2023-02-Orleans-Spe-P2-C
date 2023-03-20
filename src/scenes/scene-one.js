@@ -38,12 +38,12 @@ class SceneOne extends Phaser.Scene {
 
         this.characters = [
             new Character(this, 0, 210, 'hero', 1.0, 'hero', [
-                'il y a quelqu\'un?',
+                'Il y a quelqu\'un?',
                 'Ah bon? ',
                 'Tu vas bien ce matin?',
                 'Pardon Monsieur…',
                 'Euh… Je crois?',
-                'ah..'
+                'Ah..'
             ]),
             new Character(this, 700, 110, 'hero2', 1.0, 'Sylvain', [
                 'Bonjour jeune homme. Je t’attendais.',
