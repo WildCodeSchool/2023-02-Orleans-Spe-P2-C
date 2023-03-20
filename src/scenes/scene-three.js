@@ -55,7 +55,7 @@ const dialogRight = [
 
 class SceneThree extends Phaser.Scene {
     constructor() {
-        super({key: 'SceneThree'});
+        super({ key: 'SceneThree' });
     }
 
     preload() {
@@ -78,7 +78,7 @@ class SceneThree extends Phaser.Scene {
         const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
         const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
 
-        const music = this.sound.add('music3', {loop: true});
+        const music = this.sound.add('music3', { loop: true });
 
         const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {
@@ -99,13 +99,13 @@ class SceneThree extends Phaser.Scene {
         dialog = this.add.text(210, 555, '', {
             fontSize: '30px',
             fontFamily: 'VT323',
-            wordWrap: {width: 850, useAdvancedWrap: true}
+            wordWrap: { width: 850, useAdvancedWrap: true }
             ,
         });
         name = this.add.text(260, 505, '', {
             fontSize: '35px',
             fontFamily: 'VT323',
-            wordWrap: {width: 850, useAdvancedWrap: true},
+            wordWrap: { width: 850, useAdvancedWrap: true },
         });
 
         this.input.keyboard.on("keydown", () => {
@@ -182,7 +182,7 @@ class SceneThree extends Phaser.Scene {
             if (isDialogOver === true) {
                 this.cameras.main.fadeOut(1000, 0, 0, 0);
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                    this.scene.start('SceneThree')
+                    window.location.replace('./coffee-page.html')
                 });
             }
         });
