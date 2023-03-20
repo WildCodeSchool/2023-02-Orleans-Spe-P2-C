@@ -1,6 +1,8 @@
+
 import heartSystem from '../services/health-system.js';
 
 let hearts = [];
+
 
 class SceneOne extends Phaser.Scene {
     constructor() {
@@ -30,21 +32,29 @@ class SceneOne extends Phaser.Scene {
 
         const music = this.sound.add('music1', { loop: true });
 
-        const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {
             hearts[i] = this.add.image(90 + i * 49, 60, 'heart').setScale(0.16).setDepth(2);
         }
 
+
         this.characters = [
-            new Character(this, 0, 210, 'hero', 1.3, 'Zakarius', [
-                'Salut Sylvain',
+            new Character(this, 0, 210, 'hero', 1.0, 'hero', [
+                'il y a quelqu\'un?',
+                'Ah bon? ',
                 'Tu vas bien ce matin?',
-                'Oui, à bientôt'
+                'Pardon Monsieur…',
+                'Euh… Je crois?',
+                'ah..'
             ]),
             new Character(this, 700, 110, 'hero2', 1.0, 'Sylvain', [
-                'Salut Signature stp',
-                'Oui et toi?',
-                'à bientôt'
+                'Bonjour jeune homme. Je t’attendais.',
+                'Oui. Tu es en retard, d’ailleurs. ',
+                'Sylvain. Je suis là pour ton premier checkpoint. Es-tu prêt?',
+                `On va faire un petit jeu de PHP, Javascript, Ruby. 
+                PHP gagne contre Javascript, Javascript gagne contre Ruby, 
+                et Python gagne contre PHP. Tu as compris?`,
+                'Pas le choix de toute manière.',
+                'Allons-y.'
             ])
         ];
 
@@ -64,18 +74,12 @@ class SceneOne extends Phaser.Scene {
         }).setDepth(2).setVisible(false);
 
         this.currentCharacterIndex = 0;
-        this.input.keyboard.on('keydown-SPACE', () => this.showDialogue());
+        this.input.keyboard.on('keydown-X', () => this.showDialogue());
         this.setupInputListenersForGame();
-
-        this.input.once('pointerdown', function (event) {
-            music.stop();
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('SceneTwo')
-        })}, this);
 
         musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
         muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
+
     }
 
     update() {
@@ -83,6 +87,7 @@ class SceneOne extends Phaser.Scene {
             this.handleMinigameResult();
         }
     }
+
     handleMinigameResult() {
         const move1 = this.userChoice;
         const move2 = this.characters[1].chooseMove();
@@ -95,7 +100,9 @@ class SceneOne extends Phaser.Scene {
             (move1 === "ruby" && move2 === "php") ||
             (move1 === "javascript" && move2 === "ruby")
         ) {
-            result = `${this.characters[0].name} gagne`;
+            result = `Bravo ${this.characters[0].name} tu as gagné. Tu peux donc continuer ton chemin. 
+            Mais n’oublie pas PHP est clairement supérieur à Javascript.`;
+            this.scene.start('SceneTwo');
         } else {
             result = `${this.characters[1].name} gagne.`;
             heartSystem.loseLife();
@@ -103,13 +110,12 @@ class SceneOne extends Phaser.Scene {
         }
 
         this.dialogueText.setText(`${result}`).setVisible(true);
+        this.setupInputListenersForGame();
         this.minigameActive = false;
         this.userChoice = null;
 
-        if (result === `${this.characters[0].name} gagne`) {
-            setTimeout(() => {
-                this.scene.start('SceneTwo');
-            }, 2000);
+        if (result === `Bravo ${this.characters[0].name} tu as gagné. Tu peux donc continuer ton chemin. 
+        Mais n’oublie pas PHP est clairement supérieur à Javascript.`) {
         } else if (heartSystem.lives > 0) {
             this.minigameActive = true;
             setTimeout(() => {
@@ -117,7 +123,7 @@ class SceneOne extends Phaser.Scene {
             }, 2000);
         } else {
             setTimeout(() => {
-                window.location.href = 'gameOver.html';
+                window.location.href = 'game-over.html';
             }, 2000);
         }
 
@@ -207,7 +213,7 @@ class Character {
 
     zoom() {
         const scale = this.image.scale;
-        const targetScale = scale * 1.1;
+        const targetScale = scale * 1.05;
 
         this.scene.tweens.add({
             targets: this.image,
@@ -226,3 +232,4 @@ class Character {
 }
 
 export default SceneOne;
+
