@@ -1,5 +1,7 @@
 import heartSystem from '../services/health-system.js';
 
+let hearts = [];
+
 class SceneOne extends Phaser.Scene {
     constructor() {
         super({ key: 'SceneOne' });
@@ -74,7 +76,6 @@ class SceneOne extends Phaser.Scene {
 
         musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
         muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
-
     }
 
     update() {
@@ -98,6 +99,7 @@ class SceneOne extends Phaser.Scene {
         } else {
             result = `${this.characters[1].name} gagne.`;
             heartSystem.loseLife();
+            hearts[hearts.length-1].setVisible(false);
         }
 
         this.dialogueText.setText(`${result}`).setVisible(true);
