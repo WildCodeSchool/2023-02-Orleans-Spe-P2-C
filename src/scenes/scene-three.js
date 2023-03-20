@@ -55,18 +55,18 @@ const dialogRight = [
 
 class SceneThree extends Phaser.Scene {
     constructor() {
-        super({ key: 'SceneThree' });
+        super({key: 'SceneThree'});
     }
-    preload() {
 
-        this.load.setBaseURL("../assets/images");
-        this.load.image('Faux Sylvain', 'Sylvain-bis.png');
-        this.load.image('pond', 'pond.png');
-        this.load.image('dialog-box', 'dialog-box.png');
-        this.load.image('heart', 'heart.webp');
-        this.load.image('hero', 'hero.png');
-        this.load.image('sylvain', 'heroz.png');
-        this.load.audio('music3',['musics/Music3.ogg','musics/Music3.mp3']);
+    preload() {
+        this.load.setBaseURL("../assets/");
+        this.load.image('Faux Sylvain', 'images/Sylvain-bis.png');
+        this.load.image('pond', 'images/pond.png');
+        this.load.image('dialog-box', 'images/dialog-box.png');
+        this.load.image('heart', 'images/heart.webp');
+        this.load.image('hero', 'images/hero.png');
+        this.load.image('sylvain', 'images/heroz.png');
+        this.load.audio('music3', ['musics/Music3.ogg', 'musics/Music3.mp3']);
 
     }
 
@@ -78,7 +78,7 @@ class SceneThree extends Phaser.Scene {
         const musicIcon = this.add.sprite(1200, 20, 'musicIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive();
         const muteIcon = this.add.sprite(1200, 20, 'muteIcon').setOrigin(0).setScale(2.5).setDepth(2).setInteractive().setVisible(false);
 
-        const music = this.sound.add('music3', { loop: true });
+        const music = this.sound.add('music3', {loop: true});
 
         const hearts = [];
         for (let i = 0; i < heartSystem.lives; i++) {
@@ -99,13 +99,13 @@ class SceneThree extends Phaser.Scene {
         dialog = this.add.text(210, 555, '', {
             fontSize: '30px',
             fontFamily: 'VT323',
-            wordWrap: { width: 850, useAdvancedWrap: true }
+            wordWrap: {width: 850, useAdvancedWrap: true}
             ,
         });
         name = this.add.text(260, 505, '', {
             fontSize: '35px',
             fontFamily: 'VT323',
-            wordWrap: { width: 850, useAdvancedWrap: true },
+            wordWrap: {width: 850, useAdvancedWrap: true},
         });
 
         this.input.keyboard.on("keydown", () => {
@@ -185,7 +185,18 @@ class SceneThree extends Phaser.Scene {
                     this.scene.start('SceneThree')
                 });
             }
-        })
+        });
+
+        musicIcon.on('pointerdown', function (pointer) {
+            music.play();
+            musicIcon.setVisible(false);
+            muteIcon.setVisible(true)
+        });
+        muteIcon.on('pointerdown', function (pointer) {
+            music.stop();
+            musicIcon.setVisible(true);
+            muteIcon.setVisible(false)
+        });
     }
 
     continueDialog = (dialogType) => {
@@ -252,11 +263,6 @@ class SceneThree extends Phaser.Scene {
             duration: 2000,
             ease: 'Power2'
         });
-
-        });
-
-        musicIcon.on('pointerdown', function (pointer) {music.play(); musicIcon.setVisible(false); muteIcon.setVisible(true)});
-        muteIcon.on('pointerdown', function (pointer) {music.stop(); musicIcon.setVisible(true); muteIcon.setVisible(false)});
     }
 }
 
