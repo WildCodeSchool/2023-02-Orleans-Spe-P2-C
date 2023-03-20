@@ -102,7 +102,9 @@ class SceneOne extends Phaser.Scene {
         ) {
             result = `Bravo ${this.characters[0].name} tu as gagné. Tu peux donc continuer ton chemin. 
             Mais n’oublie pas PHP est clairement supérieur à Javascript.`;
+            setTimeout(() => {
             this.scene.start('SceneTwo');
+            }, 2000);
         } else {
             result = `${this.characters[1].name} gagne.`;
             heartSystem.loseLife();
